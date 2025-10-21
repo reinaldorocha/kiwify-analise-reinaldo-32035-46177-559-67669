@@ -44,6 +44,7 @@ import { MetaAdsTablePaginated } from '@/components/MetaAdsTablePaginated';
 import { MetaAdsCharts } from '@/components/MetaAdsCharts';
 import { MetaAdsCampaignComparison } from '@/components/MetaAdsCampaignComparison';
 import { MetaAdsAdditionalCharts } from '@/components/MetaAdsAdditionalCharts';
+import { MetaAdsAudienceProfile } from '@/components/MetaAdsAudienceProfile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { DollarSign, ShoppingCart, TrendingUp, Percent, BarChart3, RefreshCw, Users, LogOut, Target } from 'lucide-react';
@@ -836,6 +837,12 @@ const Index = () => {
                 <section className="mb-8">
                   <h2 className="text-2xl font-bold mb-4">📈 Análises Avançadas</h2>
                   <MetaAdsAdditionalCharts data={metaAdsData} />
+                </section>
+
+                {/* Audience Profile */}
+                <section className="mb-8">
+                  <h2 className="text-2xl font-bold mb-4">👥 Perfil do Público Comprador</h2>
+                  <MetaAdsAudienceProfile data={metaAdsData} />
                 </section>
 
                 {/* Data Table */}
