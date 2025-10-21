@@ -40,8 +40,10 @@ import { AffiliateTable } from '@/components/AffiliateTable';
 import { PartnershipChart } from '@/components/PartnershipChart';
 import { PartnershipTable } from '@/components/PartnershipTable';
 import { PartnershipPieChart } from '@/components/PartnershipPieChart';
-import { MetaAdsTable } from '@/components/MetaAdsTable';
+import { MetaAdsTablePaginated } from '@/components/MetaAdsTablePaginated';
 import { MetaAdsCharts } from '@/components/MetaAdsCharts';
+import { MetaAdsCampaignComparison } from '@/components/MetaAdsCampaignComparison';
+import { MetaAdsAdditionalCharts } from '@/components/MetaAdsAdditionalCharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { DollarSign, ShoppingCart, TrendingUp, Percent, BarChart3, RefreshCw, Users, LogOut, Target } from 'lucide-react';
@@ -819,15 +821,27 @@ const Index = () => {
                   </section>
                 )}
 
+                {/* Campaign Comparison */}
+                <section className="mb-8">
+                  <MetaAdsCampaignComparison data={metaAdsData} />
+                </section>
+
                 {/* Charts */}
                 <section className="mb-8">
+                  <h2 className="text-2xl font-bold mb-4">📊 Análise Visual</h2>
                   <MetaAdsCharts data={metaAdsData} />
+                </section>
+
+                {/* Additional Charts */}
+                <section className="mb-8">
+                  <h2 className="text-2xl font-bold mb-4">📈 Análises Avançadas</h2>
+                  <MetaAdsAdditionalCharts data={metaAdsData} />
                 </section>
 
                 {/* Data Table */}
                 <section className="mb-8">
                   <h2 className="text-2xl font-bold mb-4">📋 Dados Detalhados</h2>
-                  <MetaAdsTable data={metaAdsData} />
+                  <MetaAdsTablePaginated data={metaAdsData} />
                 </section>
               </>
             )}
