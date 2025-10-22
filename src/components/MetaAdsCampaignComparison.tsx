@@ -27,7 +27,17 @@ export const MetaAdsCampaignComparison = ({ data }: MetaAdsCampaignComparisonPro
   const [sortField, setSortField] = useState<SortField>('investido');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
-  const campaignMetrics = useMemo(() => calculateMetricsByGroup(data, 'nomeCampanha'), [data]);
+  const campaignMetrics = useMemo(() => {
+    const grouped = calculateMetricsByGroup(data, 'nomeCampanha');
+    // Add campaign type to each campaign
+    return grouped.map(item => {
+      const campaignData = data.find(d => d.nomeCampanha === item.name);
+      return {
+        ...item,
+        tipo: campaignData?.veiculacaoCampanha || 'N/A'
+      };
+    });
+  }, [data]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -146,6 +156,7 @@ export const MetaAdsCampaignComparison = ({ data }: MetaAdsCampaignComparisonPro
                       <SortIcon field="name" />
                     </Button>
                   </TableHead>
+                  <TableHead>Tipo</TableHead>
                   <TableHead className="text-right">
                     <Button variant="ghost" size="sm" onClick={() => handleSort('investido')}>
                       Investido
@@ -183,7 +194,7 @@ export const MetaAdsCampaignComparison = ({ data }: MetaAdsCampaignComparisonPro
               <TableBody>
                 {processedData.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                    <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
                       {searchTerm ? 'Nenhuma campanha encontrada' : 'Nenhum dado disponível'}
                     </TableCell>
                   </TableRow>
@@ -194,6 +205,11 @@ export const MetaAdsCampaignComparison = ({ data }: MetaAdsCampaignComparisonPro
                         <div className="truncate" title={item.name}>
                           {item.name}
                         </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="whitespace-nowrap">
+                          {item.tipo}
+                        </Badge>
                       </TableCell>
                       <TableCell className="text-right">
                         {formatCurrency(item.metrics.totalInvestido)}
